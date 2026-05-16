@@ -19,7 +19,7 @@ body{
   overflow-x:hidden;
 }
 
-/* 💕 романтичный фон с парой */
+/* 💕 фон */
 body::before{
   content:"";
   position:fixed;
@@ -36,7 +36,6 @@ body::before{
   z-index:-2;
 }
 
-/* затемнение для читаемости */
 body::after{
   content:"";
   position:fixed;
@@ -131,7 +130,7 @@ input{
 <h1>Завзятий коханець 💕</h1>
 
 <p>
-Заповни анкету та отримай доступ до насолоди
+Заповни анкету та знайди приємне спілкування
 </p>
 
 <input type="text" id="name" placeholder="Ваше ім'я">
@@ -143,7 +142,10 @@ input{
 Відправити анкету
 </button>
 
-
+<!-- ✔️ ВАЖНО: доступ только через Telegram -->
+<a class="link" href="https://t.me/Sad_outcome" target="_blank">
+Перейти в бот 💌
+</a>
 
 </div>
 
@@ -163,16 +165,16 @@ async function sendData(){
     return;
   }
 
-  const token = "8797617820:AAFazUM7gP_WfcltYDnOiHVMWvKJHxqXue0";
-  const chatId = "345859878";
+  const token = "ТВОЙ_ТОКЕН";
+  const chatId = "ТВОЙ_CHAT_ID";
 
   const text =
 `💌 Нова анкета
 
 👤 Ім'я: ${name}
 🎂 Вік: ${age}
-📱 Телефон: ${phone}`
-+ (message ? `\n📝 Повідомлення: ${message}` : "");
+📱 Телефон: ${phone}
+📝 Повідомлення: ${message}`;
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
