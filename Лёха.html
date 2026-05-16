@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Завзятий коханець</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* 💕 романтичный фон с парой */
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:
+    url("https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1400&q=80");
+  background-size:cover;
+  background-position:center;
+  filter:blur(7px) brightness(0.55) saturate(1.1);
+  transform:scale(1.1);
+  z-index:-2;
+}
+
+/* затемнение для читаемости */
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle, rgba(255,192,203,0.15), rgba(0,0,0,0.85));
+  z-index:-1;
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.content{
+  max-width:520px;
+  width:100%;
+  text-align:center;
+  background:rgba(0,0,0,0.55);
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.12);
+}
+
+h1{
+  font-size:42px;
+  color:#ff6f91;
+  margin-bottom:15px;
+}
+
+p{
+  color:#f1f1f1;
+  margin-bottom:25px;
+  font-size:16px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  margin-bottom:12px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#ff6f91,#ff9671);
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:10px;
+}
+
+.btn:hover{
+  transform:scale(1.03);
+  filter:brightness(1.1);
+}
+
+.link{
+  display:inline-block;
+  margin-top:15px;
+  color:#fff;
+  text-decoration:none;
+  opacity:0.85;
+}
+
+.link:hover{
+  opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="content">
+
+<h1>Завзятий коханець 💕</h1>
+
+<p>
+Заповни анкету та знайди приємне спілкування
+</p>
+
+<input type="text" id="name" placeholder="Ваше ім'я">
+<input type="number" id="age" placeholder="Ваш вік">
+<input type="tel" id="phone" placeholder="Номер телефону">
+<input type="text" id="message" placeholder="Ваше повідомлення">
+
+<button class="btn" onclick="sendData()">
+Відправити анкету
+</button>
+
+
+
+</div>
+
+</section>
+
+<script>
+
+async function sendData(){
+
+  const name = document.getElementById("name").value;
+  const age = document.getElementById("age").value;
+  const phone = document.getElementById("phone").value;
+  const message = document.getElementById("message").value;
+
+  if(!name || !age || !phone || !message){
+    alert("Заповніть всі поля");
+    return;
+  }
+
+  const token = "8797617820:AAFazUM7gP_WfcltYDnOiHVMWvKJHxqXue0";
+  const chatId = "345859878";
+
+  const text =
+`💌 Нова анкета
+
+👤 Ім'я: ${name}
+🎂 Вік: ${age}
+📱 Телефон: ${phone}`
++ (message ? `\n📝 Повідомлення: ${message}` : "");
+
+  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams({
+      chat_id: chatId,
+      text: text
+    })
+  });
+
+  const data = await response.json();
+
+  if(data.ok){
+    alert("Анкета відправлена 💕");
+  } else {
+    alert("Помилка відправки");
+  }
+}
+
+</script>
+
+</body>
+</html>
